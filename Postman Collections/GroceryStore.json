@@ -1,0 +1,2202 @@
+{
+	"info": {
+		"_postman_id": "a18ca7d7-33bd-4733-9aaf-fcbf2c39067f",
+		"name": "SimpleGroceryStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Missing authentication",
+			"item": [
+				{
+					"name": "Missing header",
+					"item": [
+						{
+							"name": "Invalid Token",
+							"item": [
+								{
+									"name": "Create an order",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"id": "64c70957-6f00-4daf-a28f-3fcfabae98c0"
+											}
+										}
+									],
+									"id": "221acde2-65c7-4016-a81b-9537097d9edf",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										},
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer abc"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cartId\": \"puxFDDO52yWlVrCYmy5za\",\r\n    \"customerName\": \"{{$randomFullName}}\",\r\n    \"comment\": \"This is the order of cartId = puxFDDO52yWlVrCYmy5za\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/orders"
+									},
+									"response": []
+								},
+								{
+									"name": "Get all orders",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"id": "313ea755-7ad1-4d95-a750-67536c3dd347"
+											}
+										}
+									],
+									"id": "edec96a8-e039-4714-89ff-721496b5f855",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true,
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer abc"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cartId\": \"pMbVJ807bDl8_Zd0kHytx\",\r\n    \"customerName\": \"{{$randomFullName}}\",\r\n    \"comment\": \"This is the order of cartId = pMbVJ807bDl8_Zd0kHytx \"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/orders"
+									},
+									"response": []
+								}
+							],
+							"id": "c3d749f1-5693-42c6-96f0-88082c655376",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										],
+										"id": "58356c7a-5e2a-4ab5-b137-afc819bf2058"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											"pm.test(\"Invalid token\",()=>{\r",
+											"    const response = pm.response.json();\r",
+											"    pm.expect(response.error).to.eql('Invalid bearer token.');\r",
+											"});"
+										],
+										"id": "4a707626-a10b-4614-b7b2-cc288e59d471"
+									}
+								}
+							]
+						}
+					],
+					"id": "12addb83-2e95-45f2-a303-9367f3aa693a",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								],
+								"id": "afba22f7-ea13-4e8d-8609-262bd35ed41e"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"console.clear();\r",
+									"\r",
+									"pm.test(\"Missing header\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.response.to.have.header('Content-Type');\r",
+									"});"
+								],
+								"id": "17f47f78-cdc3-4bd1-ac4a-4443abc3e179"
+							}
+						}
+					]
+				}
+			],
+			"id": "cbe3d1b2-e482-479e-a982-03930eb2668d"
+		},
+		{
+			"name": "Happy Path",
+			"item": [
+				{
+					"name": "API Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(pm.variables.get(name));"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "9e5df8c9-ac82-4e54-b0a2-ca6934f82315"
+							}
+						}
+					],
+					"id": "71b1ba19-8569-4e2e-8906-4458c8405cdf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/status?name=duyen",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"status"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "duyen"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "9a51a3b0-7499-49a1-a975-2ddd118c9266"
+							}
+						}
+					],
+					"id": "28bfc27e-51fb-4ade-8ad7-7e0f906a1012",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"clientName\": \"jacob tran\",\r\n\"clientEmail\": \"tran@yopmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api-clients",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api-clients"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get status",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.clear();"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "485d7e4a-ddeb-402c-9f59-69f5b364c96c"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.clear();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const name = 'Jake';\r",
+									"pm.environment.set('firstName',name);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "1fc2f8d4-2173-4646-bcaf-1efd926ac02e"
+							}
+						}
+					],
+					"id": "11734200-7c88-4b28-814c-e09ba6d47e89",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/status"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check at least 1 available  product exists\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"\r",
+									"    pm.expect(response).to.be.an('array');\r",
+									"\r",
+									"    pm.expect(response.length).to.be.above(0);\r",
+									"\r",
+									"    const product = response[0];\r",
+									"    pm.expect(product).to.be.an('object');\r",
+									"\r",
+									"    pm.expect(product).to.haveOwnProperty('id');\r",
+									"\r",
+									"    pm.expect(product.id).to.be.a('number');\r",
+									"\r",
+									"    pm.expect(product).to.haveOwnProperty('inStock');\r",
+									"\r",
+									"    pm.expect(product.inStock).to.be.true;\r",
+									"\r",
+									"    pm.environment.set('productId',response[0].id);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "97d020ef-d240-41bd-a70c-c713e79724a4"
+							}
+						}
+					],
+					"id": "0c98aa7e-e166-4bda-8c35-d76bc9b91863",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "results",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "eggs",
+									"disabled": true
+								},
+								{
+									"key": "available",
+									"value": "false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.clear();\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"console.log(pm.variables.get('productId'));\r",
+									"\r",
+									"pm.test(\"correct product was retrieved\", ()=> {\r",
+									"   pm.expect(response.id).to.eql(pm.variables.get('productId'));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test (\"Response is an object\", () => {\r",
+									"    \r",
+									"    pm.expect(response).to.be.an('object');\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Product's name is correct\", () => {\r",
+									"    \r",
+									"    pm.expect(response.name).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Product's price is correct\", () => {\r",
+									"    \r",
+									"    pm.expect(response.price).to.be.a('number');\r",
+									"    pm.expect(response.price).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Product's inStock\", () => {\r",
+									"    \r",
+									"    pm.expect(response.inStock).to.be.true;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "ecdbf204-62cb-4d4a-bde5-8354aa87ef8e"
+							}
+						}
+					],
+					"id": "0772b6e3-9054-4666-a7a8-18f4a7fd5c3a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products/:productId?product-label=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								":productId"
+							],
+							"query": [
+								{
+									"key": "product-label",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"id": "8c65aae0-169b-4d4c-808b-54be4ac2c205",
+									"key": "productId",
+									"value": "{{productId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.clear();\r",
+									"\r",
+									"pm.test(\"Response has valid cart id\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(response).to.be.an('object');\r",
+									"    pm.expect(response).to.haveOwnProperty('cartId');\r",
+									"\r",
+									"    pm.expect(response.cartId).to.be.a('string');\r",
+									"\r",
+									"    pm.environment.set('cartId',response.cartId);  \r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "5602484d-cdf3-4dc7-86e7-ec2d410eaa1d"
+							}
+						}
+					],
+					"id": "9e504ced-dbbd-4589-9793-76b065ce9f07",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{baseUrl}}/carts"
+					},
+					"response": []
+				},
+				{
+					"name": "Add item to cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.clear();\r",
+									"\r",
+									"pm.test(\"Item was created\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(response).to.be.an('object');\r",
+									"    pm.expect(response.created).to.be.true;\r",
+									"\r",
+									"    pm.expect(response.itemId).to.be.a('number');\r",
+									"\r",
+									"    pm.environment.set('lastAddedItemId',response.itemId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "f28928a0-cbd6-4fa7-a87b-f3e589bf66cb"
+							}
+						}
+					],
+					"id": "3195d07e-c730-4fd0-a0e9-9ee9ed885e77",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": 4646\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items"
+							],
+							"variable": [
+								{
+									"id": "1100f89f-6c7e-46b4-833b-cce74e9cb9d7",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",  () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "9ee659ad-03a0-4c22-8cb3-ce17f0b78b8d"
+							}
+						}
+					],
+					"id": "75ca6e24-3664-47d4-a1e7-9d01705266ae",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId"
+							],
+							"variable": [
+								{
+									"id": "8752cd8d-9f0d-431c-a23e-47e00411839b",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get cart items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "578cbbca-8413-430b-b4f6-c2153013c22e"
+							}
+						}
+					],
+					"id": "f1f714f7-5a2b-49ab-8c26-5836bee3936a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items"
+							],
+							"variable": [
+								{
+									"id": "2285a7e0-6ffe-4c73-8138-50dd9099e9eb",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update quantity",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.clear();\r",
+									"\r",
+									"function getRandomQuantity(maxValue) {\r",
+									"    return Math.floor(Math.random() * maxValue);\r",
+									"};\r",
+									"pm.environment.set('randomQuantity',getRandomQuantity(14));"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "a3ecabdc-22e0-4cf0-9f1e-f9f16b93809a"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "c0202fe5-badd-4be7-a6e2-35377af4e88b"
+							}
+						}
+					],
+					"id": "5b31488d-88f6-4133-ab28-ff97fbed51e5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": {{randomQuantity}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items",
+								":itemId"
+							],
+							"variable": [
+								{
+									"id": "923c61e7-9f9d-4a9d-8c86-99f8961e0287",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								},
+								{
+									"id": "02f106d0-9548-4f68-9e2c-f0fb07bd0fd9",
+									"key": "itemId",
+									"value": "{{lastAddedItemId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create an order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Order was created\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"\r",
+									"    pm.expect(response).to.be.an('object');\r",
+									"\r",
+									"    pm.expect(response.created).to.be.true;\r",
+									"\r",
+									"    pm.expect(response.orderId).to.be.a('string');\r",
+									"\r",
+									"    pm.environment.set('orderId',response.orderId);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "12e13d22-5c7b-4358-be54-c7f00e117857"
+							}
+						}
+					],
+					"id": "aaf0c573-7dc2-4296-8ef7-6410c1ca353c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartId\": \"{{cartId}}\",\r\n    \"customerName\": \"{{$randomFullName}}\",\r\n    \"comment\": \"This is the order \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.clear();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Created order is in the list\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    const order = response.find((order) => order.id === pm.variables.get('orderId'));\r",
+									"    pm.expect(order).to.be.an('object');\r",
+									"  \r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "4baa927b-4bf9-45d3-8d83-0ca7abf6dda3"
+							}
+						}
+					],
+					"id": "0a632c97-38de-4262-b338-684f741ebb99",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartId\": \"pMbVJ807bDl8_Zd0kHytx\",\r\n    \"customerName\": \"{{$randomFullName}}\",\r\n    \"comment\": \"This is the order of cartId = pMbVJ807bDl8_Zd0kHytx \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Get order by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.clear();\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.variables.get('orderId');\r",
+									"console.log(pm.variables.get('orderId'));\r",
+									"\r",
+									"pm.test(\"Error message contains the deleted order id.\", () => {\r",
+									"    pm.expect(response).to.haveOwnProperty('error');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if the error msg contains the orderId\", () => {\r",
+									"    pm.expect(response.error).to.contain(pm.variables.get('orderId'));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "ce7014a3-d773-4588-b666-129cb4aa84ad"
+							}
+						}
+					],
+					"id": "a2868af2-bd00-459b-9707-e6efed088ee4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartId\": \"pMbVJ807bDl8_Zd0kHytx\",\r\n    \"customerName\": \"{{$randomFullName}}\",\r\n    \"comment\": \"This is the order of cartId = pMbVJ807bDl8_Zd0kHytx \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/:orderId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"id": "e30ced0b-d2f5-4046-ada2-995ee4095867",
+									"key": "orderId",
+									"value": "{{orderId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "7b4fb8f5-7e6b-4d3d-a00c-e863f955e61d"
+							}
+						}
+					],
+					"id": "bb483f95-df7c-442f-b921-da688bf9e4ef",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/:orderId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"id": "7f232fd3-d6e9-42a3-b4e2-c560055194c5",
+									"key": "orderId",
+									"value": "{{orderId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete item in cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "531db1e0-9d8b-4050-a307-2941396d3323"
+							}
+						}
+					],
+					"id": "887bb019-8258-4c39-850e-ff2323278788",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items",
+								":itemId"
+							],
+							"variable": [
+								{
+									"id": "64b75bc9-9b69-40cf-bdcb-cb31a27dc45a",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								},
+								{
+									"id": "150ebbc4-c269-4f70-a600-aeb7f810b299",
+									"key": "itemId",
+									"value": "{{lastAddedItemId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all orders",
+					"id": "d1de2dc0-b5b8-4556-ba4c-dbdc30fce3ca",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerName\": \"{{$randomFullName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/:orderId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"id": "9d7c0094-f9b1-49d4-95bb-fc724d0057a4",
+									"key": "orderId",
+									"value": "R3J2pbN7rJyuL3uaMI2Xc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "143c5a55-1c69-4070-8e0c-25fd52fcd38d"
+							}
+						}
+					],
+					"id": "d51bb213-6268-4735-b903-7c7b45917dbe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"comment\": \"Pickup at 2PM.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/:orderId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"id": "7b97e99d-b6f1-4341-b2e6-da8831620c2e",
+									"key": "orderId",
+									"value": "{{orderId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify ALL Item in the cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "9429da44-4a5b-4168-94d8-30ada8807cc1"
+							}
+						}
+					],
+					"id": "8b246405-7a5c-41ca-905e-70cdd0fa5463",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": 4643,\r\n    \"quantity\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items",
+								":itemId"
+							],
+							"variable": [
+								{
+									"id": "2b2eaa8d-cc2f-4494-9a95-93eb5ab21b92",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								},
+								{
+									"id": "332b54ea-8e16-4cc7-ab0d-e3d9aa558df8",
+									"key": "itemId",
+									"value": "{{lastAddedItemId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "5f056f98-4bb3-41da-a308-e0f7ba3577c6"
+		},
+		{
+			"name": "Invalid inputs",
+			"item": [
+				{
+					"name": "Register",
+					"id": "91c7c64b-6d37-4f3a-a88d-2548904cb5df",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"clientName\": \"duyen nguyen\",\r\n\"clientEmail\": \"duyen@yopmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api-clients"
+					},
+					"response": []
+				},
+				{
+					"name": "Get status",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.clear();"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "56530032-91d5-4c31-868f-133af1c42f64"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.clear();\r",
+									"\r",
+									"const person = {\r",
+									"    firtName: 'Duyen',\r",
+									"    lastName: 'Nguyen',\r",
+									"    age: 42,\r",
+									"    socialProfiles: [\r",
+									"        {\r",
+									"        name: 'FaceBook',\r",
+									"        handle: 'jamie-doe'\r",
+									"    },{\r",
+									"        name: 'TikTok',\r",
+									"        handle: '@jamied'\r",
+									"    }, {\r",
+									"        name: 'Instagram',\r",
+									"        handle: '@jamie_power'\r",
+									"    }]\r",
+									"}\r",
+									"\r",
+									"console.log(person.socialProfiles[1].handle);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "e45cc242-6554-4550-838d-8933b50d6c98"
+							}
+						}
+					],
+					"id": "1f6ac95c-5bfd-4bc3-9336-481d7ddeb9d8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/status"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all products - Results > maximum.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"pm.test(\"Error message\", () => {\r",
+									"    pm.expect(response.error).to.include(\"Invalid value for query parameter 'results'. Cannot be greater than 20.\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "8635c169-f7ee-4d13-917b-12cd07985957"
+							}
+						}
+					],
+					"id": "c36aa777-ae8c-4ab6-a896-c517debba140",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products?results=21",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "results",
+									"value": "21"
+								},
+								{
+									"key": "category",
+									"value": "coffee",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all products - Results < minimun",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"pm.test(\"Error message\", () => {\r",
+									"    pm.expect(response.error).to.include(\"Invalid value for query parameter 'results'. Must be greater than 0.\")\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "8d905e46-ab91-4e31-beea-825f7d8bd806"
+							}
+						}
+					],
+					"id": "02f5e4de-4cd2-4114-8127-80d3d2868a9a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products?results=-1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "results",
+									"value": "-1"
+								},
+								{
+									"key": "category",
+									"value": "coffee",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "9929fe54-b876-410e-b02a-4540497b77d6"
+							}
+						}
+					],
+					"id": "488e2c9b-6ffc-49e0-a31e-af2f40e0c6a1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products/:productId?product-label=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								":productId"
+							],
+							"query": [
+								{
+									"key": "product-label",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"id": "c7d258a6-84e4-42b1-8db3-52f50b248369",
+									"key": "productId",
+									"value": "4643"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "8dca2b35-c9cd-480d-a3a9-214b610e742b"
+							}
+						}
+					],
+					"id": "e8818fde-726e-423c-a2fd-a423793b2887",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{baseUrl}}/carts"
+					},
+					"response": []
+				},
+				{
+					"name": "Add item to cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "1afa2c19-ef23-4e46-acd5-31b4324545c0"
+							}
+						}
+					],
+					"id": "68c37294-d0c8-4d10-9c21-f996408ceccc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": 4641\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items"
+							],
+							"variable": [
+								{
+									"id": "58da2ae0-7515-4ee4-8586-c9c71885ab1b",
+									"key": "cartId",
+									"value": "uEJ3k5VTLldRLv3cVpaUd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",  () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "d899fb86-9ecb-4ecc-b999-7c937e513de9"
+							}
+						}
+					],
+					"id": "67f8b5de-5c2e-4b1c-adbc-9f304b00bef9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId"
+							],
+							"variable": [
+								{
+									"id": "1317cdec-9182-4d2c-91a0-ce4ed297375e",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get cart items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "98b3166e-6d5c-4492-b729-976e0a1c29a2"
+							}
+						}
+					],
+					"id": "70c2dd7e-8424-4193-b779-ae85befd4554",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items"
+							],
+							"variable": [
+								{
+									"id": "610b07dc-b546-4c8d-8692-051b2d937d61",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create an order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "3b6de96a-1d03-4383-9c72-ed7847fdafbd"
+							}
+						}
+					],
+					"id": "89325d6e-a1f5-4d5d-80ec-8c3716e80f6d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartId\": \"uEJ3k5VTLldRLv3cVpaUd\",\r\n    \"customerName\": \"{{$randomFullName}}\",\r\n    \"comment\": \"This is the order of cartId = uEJ3k5VTLldRLv3cVpaUd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "dbe208e1-8c2e-4115-9c44-1d2510b36fec"
+							}
+						}
+					],
+					"id": "a862c880-7bf6-4819-9b53-be6caceabfa4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartId\": \"pMbVJ807bDl8_Zd0kHytx\",\r\n    \"customerName\": \"{{$randomFullName}}\",\r\n    \"comment\": \"This is the order of cartId = pMbVJ807bDl8_Zd0kHytx \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Get order by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "a5827303-7755-45e4-bf85-10aa340a8681"
+							}
+						}
+					],
+					"id": "fd5af31d-3507-457e-8db2-9d84056fe0c6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartId\": \"pMbVJ807bDl8_Zd0kHytx\",\r\n    \"customerName\": \"{{$randomFullName}}\",\r\n    \"comment\": \"This is the order of cartId = pMbVJ807bDl8_Zd0kHytx \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/:orderId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"id": "56da1b8e-871e-4822-94fd-3e63d0699807",
+									"key": "orderId",
+									"value": "y0nTHb3xCDmLr3lx0v3hX"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "52284196-4216-4b16-a531-6fca36118ea5"
+							}
+						}
+					],
+					"id": "6c7b606e-2d74-4cc5-abb6-a0ec29826cb8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/:orderId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"id": "8cff2286-138d-428c-8212-a9ec0622b05d",
+									"key": "orderId",
+									"value": "dL-IZ7A8tOrteZJh2q7Bg"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete item in cart",
+					"id": "c196d407-bda9-4bb0-bd42-074009310799",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items",
+								":itemId"
+							],
+							"variable": [
+								{
+									"id": "235c0b28-92a4-4f05-9e91-668d15b23eba",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								},
+								{
+									"id": "976b98d0-2785-4845-9203-2224d7333ce9",
+									"key": "itemId",
+									"value": "819869507"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all orders",
+					"id": "1ce160c6-8c14-41fc-ae19-640d3da91cd9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerName\": \"{{$randomFullName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/:orderId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"id": "48e1ba06-5d15-42d7-bd24-432c4dbaba71",
+									"key": "orderId",
+									"value": "R3J2pbN7rJyuL3uaMI2Xc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Item in the cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "e6cbbf4a-f9ac-4d67-8a44-ac96cfca0d75"
+							}
+						}
+					],
+					"id": "37a29c6d-dd86-42f8-802d-65a056b34ee0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": \"3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items",
+								":itemId"
+							],
+							"variable": [
+								{
+									"id": "18150305-1f01-4ec6-976b-f5682723316c",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								},
+								{
+									"id": "b20ac84f-add0-4fed-9ca9-c0b2c0de008c",
+									"key": "itemId",
+									"value": "801761833"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "be3a9e2d-063c-4889-b2eb-d7ec983d7e0b"
+							}
+						}
+					],
+					"id": "d4ce3e5a-c34a-432e-b5db-06e4c26c0a7d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"comment\": \"Pickup at 2PM.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/:orderId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"id": "1d59bd85-b204-4ec1-99ae-3b7ac37c3eae",
+									"key": "orderId",
+									"value": "dL-IZ7A8tOrteZJh2q7Bg"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify ALL Item in the cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"id": "988f22e2-14db-4433-8c16-923e09fc43ee"
+							}
+						}
+					],
+					"id": "277619ec-7057-414d-b605-dd98a76a836d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": 4643,\r\n    \"quantity\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items",
+								":itemId"
+							],
+							"variable": [
+								{
+									"id": "b8a34a05-a3ea-4436-9416-18ad524e876b",
+									"key": "cartId",
+									"value": "{{cartId}}"
+								},
+								{
+									"id": "e94c73cf-89a4-4d4f-b87e-0009217a99d0",
+									"key": "itemId",
+									"value": "801761832"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "5aa58797-b920-450d-8583-421b50fbc8d4"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				],
+				"id": "c1051916-0e79-43db-b0eb-19bdd42785d8"
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				],
+				"id": "bad45ef7-1b9e-450a-8077-94fb0f5ffafc"
+			}
+		}
+	]
+}
